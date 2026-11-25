@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Диалоговые окна</title>
+</head>
+<body>
+    <h1>Диалоговые окна</h1>
+    <button onclick="survey()">1. Анкета</button>
+    <button onclick="ticket()">2. Счастливый билет</button>
+    <button onclick="guess()">3. Угадай число</button>
+
+    <script>
+        function survey() {
+            while (true) {
+                let name = prompt("Введите ФИО");
+                if (name === null) return;
+                let gender = prompt("Введите пол");
+                if (gender === null) return;
+                let age = prompt("Введите возраст");
+                if (age === null) return;
+                let email = prompt("Введите e-mail");
+                if (email === null) return;
+
+                let info = "ФИО: " + name + "\nПол: " + gender +
+                    "\nВозраст: " + age + "\ne-mail: " + email;
+
+                if (confirm(info + "\n\nВсё верно?")) {
+                    alert("Спасибо за информацию!");
+                    return;
+                }
+            }
+        }
+
+        function ticket() {
+            let number = prompt("Введите шесть цифр билета");
+            if (number === null) return;
+
+            if (!/^[0-9]{6}$/.test(number)) {
+                alert("Номер должен состоять из шести цифр.");
+                return;
+            }
+
+            let first = 0;
+            let last = 0;
+            for (let i = 0; i < 3; i++) {
+                first += Number(number[i]);
+                last += Number(number[i + 3]);
+            }
+
+            if (first === last) {
+                alert("Счастливый билет!");
+            } else {
+                alert("Обычный билет.");
+            }
+        }
+
+        function guess() {
+            alert("Загадайте целое число от 0 до 100.");
+            let min = 0;
+            let max = 100;
+
+            while (min <= max) {
+                let middle = Math.floor((min + max) / 2);
+                let answer = prompt("Сравните ваше число с " + middle +
+                    ". Введите >, < или ==");
+                if (answer === null) return;
+
+                if (answer === "==") {
+                    alert("Ваше число: " + middle);
+                    return;
+                } else if (answer === ">") {
+                    min = middle + 1;
+                } else if (answer === "<") {
+                    max = middle - 1;
+                } else {
+                    alert("Введите один из знаков: >, < или ==");
+                }
+            }
+            alert("Ответы противоречат друг другу. Начните игру заново.");
+        }
+    </script>
+</body>
+</html>
